@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "yarn dev:start && nodemon index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js",
     "lint": "eslint .",
     "postgre:start": "docker-compose up postgres_db_container",

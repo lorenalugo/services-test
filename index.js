@@ -9,7 +9,13 @@ const app = express();
 
 // parse application/x-www-form-urlencoded
 app.use(cors(
-  permision.application.cors.server,
+  {
+    server: [
+      {
+        origin: '*',
+      },
+    ],
+  },
 ));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -19,6 +25,6 @@ app.use('/', routes);
 
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.info(`App listening on port ${port}`);
+app.listen('8080', () => {
+  console.info('App listening on port 8080');
 });
