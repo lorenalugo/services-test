@@ -1,0 +1,14 @@
+postgres_db_container:
+    image: postgres:latest
+    container_name: postgres_docker
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: example_admin
+      POSTGRES_DB: airport_database
+
+    ports:
+      - 5432:5432
+
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data

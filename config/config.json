@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "example_admin",
+    "database": "airport_database",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "admin",
+    "password": "example_admin",
+    "database": "airport_database",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "admin",
+    "password": "example_admin",
+    "database": "airport_database",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
