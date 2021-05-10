@@ -2,7 +2,6 @@ module.exports = (sequelize, DataTypes) => {
   const PassengerPackage = sequelize.define(
     'PassengerPackage',
     {
-      qty: DataTypes.INTEGER,
       status: DataTypes.STRING,
     },
   );
