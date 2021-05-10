@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const config = require('./config');
 const errorHandler = require('./middlewares/errorHandler');
 const routes = require('./routes');
 
-const { port, permision } = config;
 const app = express();
 
 // parse application/x-www-form-urlencoded

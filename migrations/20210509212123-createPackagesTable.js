@@ -5,6 +5,16 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: new Date(),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: new Date(),
+      },
     },
     name: {
       type: Sequelize.STRING,
