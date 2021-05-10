@@ -2,7 +2,16 @@ const models = require('../models');
 
 exports.getPassengers = async (req, res, next) => {
   try {
-    const passengers = await models.Passenger.findAll();
+    const passengers = await models.Passenger.findAll({
+      include: [
+        {
+          association: 'packages',
+          attributes: ['id'],
+          where: { status: 'ingresado' },
+          required: true,
+        },
+      ],
+    });
     return res.status(200).json({
       success: true,
       result: {
@@ -17,9 +26,12 @@ exports.getPassengers = async (req, res, next) => {
 exports.getPassengerPackages = async (req, res, next) => {
   const { passengerId } = req.query;
   try {
-    const packages = await models.PassengerPackage.findOne({
+    const packages = await models.PassengerPackage.findAll({
       include: [
-        { association: 'type' },
+        {
+          association: 'type',
+          attributes: ['id', 'name'],
+        },
       ],
       where: { passengerId },
     });
@@ -40,7 +52,11 @@ exports.createPassenger = async (req, res, next) => {
   } = req.body;
   try {
     if (packages && packages.length <= 3) {
-      const passenger = await models.Passenger.create({ names, lastnames, flightNumber });
+      const passenger = await models.Passenger.create({
+        names,
+        lastnames,
+        flightNumber,
+      });
       const formattedPackages = packages.map(Package => ({
         ...Package,
         passengerId: passenger.id,
@@ -58,16 +74,20 @@ exports.createPassenger = async (req, res, next) => {
 };
 
 exports.updatePassengerPackage = async (req, res, next) => {
-  const { passengerId } = req.query;
+  const { passengerId } = req.body;
   try {
-    const validatePassenger = await models.Passenger.findOne({ where: { id: passengerId } });
+    const validatePassenger = await models.Passenger.findOne({
+      where: { id: passengerId },
+    });
     if (!validatePassenger) {
       throw Error('Pasajero no encontrado');
     }
-    await models.PassengerPackage.bulkUpdate({
-      status: 'retirado',
-      where: { passengerId },
-    });
+    await models.PassengerPackage.update(
+      {
+        status: 'retirado',
+      },
+      { where: { passengerId } },
+    );
     return res.status(200).json({
       success: true,
     });
